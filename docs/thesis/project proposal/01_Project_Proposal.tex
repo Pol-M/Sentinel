@@ -1,0 +1,265 @@
+\documentclass[11pt, a4paper]{article}
+
+% ---------------------------------------------------------------------------
+% Packages
+% ---------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
+
+\onehalfspacing
+
+% ---------------------------------------------------------------------------
+% Title page information
+% ---------------------------------------------------------------------------
+\title{
+    \textbf{Sentinel} \\
+    \large An Automated Electronic Climbing Belay Device \\
+    \vspace{0.3cm}
+    \large Project Proposal
+}
+\author{
+    Pol Mas Fillat \\
+    \small Norwegian University of Science and Technology (NTNU), Trondheim \\
+    \small Universitat Politècnica de Catalunya (UPC), Barcelona \\
+    \vspace{0.2cm}
+    \small Supervisor: Amund Skavhaug
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\vspace{1cm}
+
+\begin{abstract}
+\noindent
+Sentinel is a mechatronic system designed to function as an automated
+electronic climbing belay device -- an ``electric Grigri.'' The device
+actively manages climbing rope slack during ascent and performs a
+fast-acting emergency brake in the event of a fall, removing the need for a
+human belayer. This document presents the initial project proposal for the
+Master's Thesis, outlining the motivation, objectives, scope, and
+requirements of the system to be developed on an ESP32-based embedded
+platform.
+\end{abstract}
+
+\vspace{0.5cm}
+
+\section{Introduction}
+
+Rock and sport climbing rely fundamentally on the belay system: the
+mechanism and human partner responsible for managing rope slack and
+arresting a climber's fall. Traditional belaying requires a trained,
+attentive human belayer holding the rope at all times, which introduces
+risks related to human error, fatigue, distraction, and inconsistent
+reaction times. Semi-automated mechanical devices, such as the Petzl
+GriGri, assist with braking but still require a human operator to feed
+rope and manage slack.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/petzl_grigri_reference.png}
+    \caption{Reference CAD model of the Petzl GriGri mechanical assembly,
+    used as a starting point for the design of Sentinel's rope-gripping
+    mechanism.}
+    \label{fig:petzl_grigri}
+\end{figure}
+
+The mechanical core of the Petzl GriGri, shown in Figure
+\ref{fig:petzl_grigri}, is taken as the initial design reference for
+Sentinel. Its camming/pinching mechanism, which clamps the rope against a
+grooved wheel to generate braking friction, is a proven, compact, and
+mechanically reliable solution for assisted-braking belay devices. Rather
+than designing a rope-gripping mechanism from scratch, this project will
+use the GriGri's mechanical layout as a baseline and extend it with motor
+actuation, enabling the mechanism to be driven autonomously for both
+slack management (feeding and taking in rope) and emergency braking,
+rather than requiring a human to manually operate the cam lever and
+control the rope by hand.
+
+Sentinel proposes a fully automated, sensor-driven belay device: an
+embedded mechatronic system capable of continuously monitoring rope
+position, tension, and dynamic motion in real time, and of autonomously
+regulating slack while remaining ready to trigger an emergency brake
+within milliseconds of detecting a fall event. By combining a rotary
+encoder, a load cell, and an inertial measurement unit (IMU) with a
+motor-actuated braking and rope-management mechanism, the system aims to
+provide a belay experience that is at least as safe and responsive as a
+competent human belayer, while removing the dependency on continuous human
+attention.
+
+This project is developed as a Master's Thesis in Industrial Engineering
+at the Norwegian University of Science and Technology (NTNU), Trondheim,
+under the supervision of Amund Skavhaug, in collaboration with the
+Universitat Politècnica de Catalunya (UPC).
+
+\section{Main Objectives}
+
+\begin{enumerate}[leftmargin=1.2cm]
+    \item Design and build a functional mechatronic prototype of an
+        automated belay device capable of managing rope slack during a
+        climber's ascent without human intervention.
+    \item Implement a real-time embedded control system, running on an
+        ESP32 microcontroller, that fuses data from a rotary encoder, a
+        load cell, and an IMU to estimate the climber's state (climbing,
+        resting, falling).
+    \item Develop and validate a fast-acting emergency braking mechanism
+        capable of arresting a fall within a safe reaction time and
+        stopping distance, comparable to or better than manual belay
+        devices.
+    \item Create a remote control device / smartphone app / smartwatch app to allow the climber to control the belay device.
+    \item Characterize and document the mechanical, electrical, and
+        control-software design through rigorous testing, in a form
+        suitable for academic evaluation as a Master's Thesis.
+\end{enumerate}
+
+\section{Secondary Objectives}
+
+\begin{enumerate}[leftmargin=1.2cm]
+    \item Explore adaptive slack management strategies (e.g. dynamic rope
+        feed-out/take-in) to improve climber comfort and reduce unwanted
+        rope drag or sudden tension spikes.
+    \item Investigate sensor fusion techniques (e.g. Kalman filtering)
+        to robustly distinguish fall events from ordinary climbing
+        dynamics (clipping, resting on the rope, lead falls).
+    \item Design the system with modularity and extensibility in mind, so
+        that future work could explore additional features such as
+        wireless connectivity, data logging for training analysis, or
+        integration with gym safety infrastructure.
+    \item Evaluate the safety, reliability, and failure modes of the
+        device against relevant climbing equipment standards (e.g. UIAA,
+        EN 12841) as a reference framework, without necessarily seeking
+        formal certification within the scope of this thesis.
+\end{enumerate}
+
+\section{Justification}
+
+Climbing gyms and outdoor climbing activities are experiencing sustained
+growth in popularity, and belaying remains one of the most safety-critical
+tasks in the sport. Human belayer error -- including inattention, incorrect
+technique, and short-rope or hard-catch incidents -- is a documented
+contributor to climbing injuries and fatalities. While auto-belay devices
+exist commercially (e.g. for top-rope-only gym use, using retractable
+cable/webbing systems), there is currently no widely available solution
+that automates belaying for lead climbing using a standard climbing rope
+while actively managing slack in real time.
+
+An automated smart belay device addresses this gap by combining
+continuous, fatigue-free sensor monitoring with a mechanically robust
+braking system. From an engineering standpoint, the project is justified
+by the interdisciplinary challenge it poses: it requires the integration
+of mechanical design (rope-handling mechanism, braking system), embedded
+real-time software, sensor signal processing, and control theory, making
+it a comprehensive and appropriate capstone project for a Master's Thesis
+in Industrial Engineering.
+
+\section{Scope}
+
+The scope of this thesis project includes:
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item Design and fabrication of a mechanical prototype capable of
+        gripping, feeding, and braking a standard single climbing rope.
+    \item Selection and integration of a rotary encoder, load cell, and
+        IMU for real-time rope and motion sensing.
+    \item Development of embedded C++ firmware on an ESP32 platform
+        (using PlatformIO) implementing sensor acquisition, state
+        estimation, slack-management control, and emergency-brake
+        triggering logic.
+    \item Bench and controlled-environment testing of the prototype,
+        including simulated fall scenarios, to evaluate reaction time,
+        braking distance, and false-trigger rate.
+    \item Documentation of the design process, testing methodology, and
+        results in the Master's Thesis document.
+\end{itemize}
+
+The following are explicitly \textbf{out of scope} for this thesis, unless
+revisited as future work:
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item Formal certification of the device against climbing safety
+        standards (e.g. UIAA, CE/EN).
+    \item Outdoor field testing with real climbers at height.
+    \item Mass-manufacturability and industrial design for a commercial
+        product.
+\end{itemize}
+
+\section{Requirements}
+
+\subsection{Hardware Requirements}
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item \textbf{Microcontroller:} ESP32-based development board,
+        providing sufficient processing power and I/O for real-time
+        sensor fusion and motor control.
+    \item \textbf{Rotary encoder:} to measure rope displacement and
+        feed/retrieval speed.
+    \item \textbf{Load cell (with amplifier, e.g. HX711 or similar):} to
+        measure rope tension, used both for slack detection and as an
+        input to fall detection.
+    \item \textbf{Inertial Measurement Unit (IMU):} to detect dynamic
+        motion characteristic of a fall event (e.g. sudden acceleration
+        changes).
+    \item \textbf{Actuator:} a servo or BLDC motor mechanism responsible
+        for rope feed/take-in and for actuating the mechanical brake.
+    \item \textbf{Braking mechanism:} a mechanically robust, fail-safe
+        braking element capable of arresting fall loads.
+    \item \textbf{Power supply:} suitable battery and power management
+        circuitry for a portable prototype.
+    \item \textbf{Structural frame/housing:} to mount all components
+        securely around the rope path.
+\end{itemize}
+
+\subsection{Software Requirements}
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item \textbf{Firmware development environment:} C++ using
+        PlatformIO, targeting the ESP32 (\texttt{esp32dev}) platform.
+    \item \textbf{Real-time sensor acquisition:} drivers/routines for
+        reading the rotary encoder, load cell, and IMU at rates
+        sufficient for fall detection latency requirements.
+    \item \textbf{State estimation / sensor fusion:} algorithms (e.g.
+        thresholding, filtering, or Kalman-based fusion) to classify the
+        climber's current state and detect fall onset reliably.
+    \item \textbf{Motor control logic:} closed-loop control of the
+        rope-management actuator for slack take-up/feed-out.
+    \item \textbf{Emergency brake control:} deterministic, low-latency
+        logic to trigger the braking mechanism upon fall detection.
+    \item \textbf{Documentation and version control:} structured project
+        documentation (\texttt{docs/}) and development log
+        (\texttt{docs/DEV\_LOG.md}) tracking design decisions.
+\end{itemize}
+
+\section{Expected Contributions}
+
+This thesis is expected to contribute:
+
+\begin{enumerate}[leftmargin=1.2cm]
+    \item A working proof-of-concept prototype demonstrating that
+        automated, sensor-driven belaying with real-time slack
+        management and fast emergency braking is technically feasible
+        using accessible embedded hardware.
+    \item An open, documented reference architecture (hardware and
+        firmware) for future research or development of automated belay
+        devices, including sensor fusion strategies for fall detection.
+    \item Empirical performance data (reaction time, braking distance,
+        false-positive/false-negative rates) characterizing the
+        prototype's safety-relevant behavior under controlled test
+        conditions.
+    \item A foundation for future work extending the system toward
+        higher reliability, certification readiness, and real-world
+        climbing gym deployment.
+\end{enumerate}
+
+\end{document}

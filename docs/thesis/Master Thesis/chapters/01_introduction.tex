@@ -1,0 +1,214 @@
+\chapter{Introduction}
+\label{ch:introduction}
+
+The name \emph{Sentinel} is derived from the Old Italian word
+\emph{sentinella}, referring to a person or thing tasked with watching
+over, protecting, and alerting others of potential danger. This is
+precisely what the device aims to do for a climber: it continuously
+watches over the climbing rope, manages it to protect the climber during
+the ascent, and reacts immediately -- by braking -- the moment a danger
+(a fall) is detected.
+
+\section{Background}
+\label{sec:background}
+
+Rock and sport climbing rely fundamentally on the belay system: the
+mechanism and human partner responsible for managing rope slack and
+arresting a climber's fall. Traditional belaying requires a trained,
+attentive human belayer holding the rope at all times, which introduces
+risks related to human error, fatigue, distraction, and inconsistent
+reaction times. Semi-automated mechanical devices assist with braking by
+using a cam or pinching mechanism that clamps the rope against a grooved
+wheel, but they still require a human operator to feed rope in and out and
+to manage slack during the climb.
+
+As an initial mechanical design reference, this project looks specifically
+at the Petzl GriGri, shown in \cref{fig:petzl_grigri}. Unlike a plain
+friction hitch or a static cam, the GriGri already relies on a mechanism
+with moving parts -- a camming/pinching lever that clamps the rope
+against a grooved wheel to generate braking friction -- which makes it a
+plausible starting point for turning into a mechatronic (i.e.\
+motor-actuated and sensor-driven) system, rather than having to design a
+rope-gripping mechanism from scratch. A free 3D CAD model of this
+mechanism, available on the GrabCAD model repository~\cite{grabcad_petzl_grigri},
+was used to study its mechanical layout and is used here purely as a
+starting point for the mechanical design of Sentinel's own rope-gripping
+mechanism, to be extended with active sensing and actuation as described
+in this thesis.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{figures/petzl_grigri_reference.png}
+    \caption{Petzl GriGri mechanical assembly. CAD model obtained from the
+    GrabCAD model repository~\cite{grabcad_petzl_grigri}, used as a
+    starting point for the design of Sentinel's rope-gripping mechanism.}
+    \label{fig:petzl_grigri}
+\end{figure}
+
+\section{Project Area}
+\label{sec:project-area}
+
+This thesis sits at the intersection of mechatronics, embedded real-time
+systems, and sports safety equipment engineering. The project area covers:
+the mechanical design of a rope-handling and braking mechanism; the
+integration of motion, position, and force sensing to estimate a climber's
+state in real time; the design of an active motor-driven mechanism for
+slack management and emergency braking; and the analysis of relevant
+safety regulations and standards for climbing protection equipment.
+
+\section{Narrowing}
+\label{sec:narrowing}
+
+Given the breadth of the project area, this work narrows its focus to a
+single-rope, indoor, controlled-environment prototype. The system is
+narrowed to:
+
+\begin{itemize}
+    \item A single, standard dynamic climbing rope diameter and type,
+        rather than supporting the full range of ropes on the market.
+    \item Bench-top and controlled indoor testing, rather than outdoor or
+        production climbing-gym deployment.
+    \item A functional proof-of-concept prototype, rather than a
+        manufacturable, certified consumer product.
+\end{itemize}
+
+\section{Principal Objectives}
+\label{sec:principal-objectives}
+
+\begin{enumerate}
+    \item Create a functional prototype of an automated self-belaying
+        device.
+    \item Perform comprehensive testing and evaluation of the prototype.
+    \item Analyze regulations, standards, and safety requirements
+        applicable to such climbing devices.
+\end{enumerate}
+
+\section{Secondary Objectives}
+\label{sec:secondary-objectives}
+
+\begin{enumerate}
+    \item Survey existing commercial and academic self-belay and
+        assisted-braking solutions.
+    \item Formulate comprehensive functional and technical requirement
+        specifications for the system.
+\end{enumerate}
+
+\section{Research Questions}
+\label{sec:research-questions}
+
+\begin{enumerate}
+    \item[\textbf{RQ1}] To what extent can an embedded sensing system
+        reliably distinguish between a climber pulling in rope during
+        normal ascent and the onset of an actual fall?
+    \item[\textbf{RQ2}] How can an automated belay mechanism safely
+        transition out of a braked state once the climber has resumed a
+        valid climbing position, without requiring manual intervention?
+    \item[\textbf{RQ3}] Which existing regulations and standards
+        applicable to climbing protection equipment are relevant to an
+        automated belay device, and what safety requirements do they
+        impose on its design?
+    \item[\textbf{RQ4}] What mechanical and control-system safeguards are
+        necessary to guarantee a safe fallback behaviour (e.g.\ automatic
+        rope locking) in the event of a power or electronic failure?
+\end{enumerate}
+
+\section{Limitations}
+\label{sec:limitations}
+
+The following are explicitly outside the scope of this thesis, unless
+revisited as future work:
+
+\begin{itemize}
+    \item Formal certification of the device against climbing safety
+        standards (e.g.\ UIAA, CE/EN).
+    \item Outdoor field testing with real climbers at height.
+    \item Support for multiple rope diameters, types, or conditions
+        (e.g.\ wet or icy rope).
+    \item Weatherproofing and long-term durability testing of the
+        prototype enclosure.
+    \item Mass-manufacturability and industrial design for a commercial
+        product.
+\end{itemize}
+
+\section{Contributions}
+\label{sec:contributions}
+
+This thesis is expected to contribute:
+
+\begin{enumerate}
+    \item A working proof-of-concept prototype demonstrating that
+        automated, sensor-driven belaying with real-time slack management
+        and fast emergency braking is technically feasible using
+        accessible embedded hardware.
+    \item An analysis of existing commercial and academic self-belay
+        solutions, situating this project's approach relative to the
+        state of the art.
+    \item A documented functional and technical requirement
+        specification for automated belay devices.
+    \item An analysis of applicable regulations, standards, and safety
+        requirements relevant to automated belay device design.
+    \item Empirical performance data (e.g.\ reaction time, braking
+        distance, false-trigger rate) characterising the prototype's
+        safety-relevant behaviour under controlled test conditions.
+\end{enumerate}
+
+\section{Report Structure}
+\label{sec:report-structure}
+
+This report is organised to build from problem definition to
+implementation and evaluation, following the structure of a typical
+software/mechatronic development-project thesis. \Cref{ch:introduction}
+(this chapter) introduces the motivation, objectives, research questions,
+and scope. \Cref{ch:functional-requirements} defines the functional and
+non-functional requirements that the system must satisfy, at both a high
+and low level. \Cref{ch:technical-design} describes the overall
+architecture of the chosen solution and why it was chosen.
+\Cref{ch:development-process} describes the development process
+followed, including tools for project management and documentation.
+\Cref{ch:implementation} covers the technical details of the
+implementation (tools, languages, libraries, and representative code or
+design examples). \Cref{ch:deployment} describes how the system is set
+up and deployed on the target hardware. \Cref{ch:testing-feedback}
+describes how the system was tested and what was learned from testing.
+\Cref{ch:discussion} discusses the process and product choices made
+throughout the project, and \Cref{ch:conclusion} summarises what was
+achieved and outlines future work. Every chapter beyond this Introduction
+and the Requirements chapter is currently an empty placeholder, to be
+filled in as the project progresses; each structural change to this
+document is logged in the project's development log
+(\texttt{docs/DEV\_LOG.md}).
+
+\section{Report Tools}
+\label{sec:report-tools}
+
+This section documents the tools used in preparing this report and the
+underlying project work.
+
+\subsection{AI Tools}
+
+An AI-assisted coding and documentation environment (Cursor) was used
+throughout the project to accelerate firmware scaffolding, documentation
+drafting, and LaTeX authoring. All AI-assisted contributions were
+reviewed and directed by the author; ambiguous design decisions were
+resolved by the author rather than left to automated assumptions, per the
+project's development workflow.
+
+\subsection{CAD Tools}
+
+Mechanical design and reference modelling work uses SolidWorks, alongside
+publicly available reference CAD models (see \cref{sec:background}) used
+for early-stage design inspiration.
+
+\subsection{LaTeX and Documentation Tools}
+
+This report is written in \LaTeX{}, using the community \texttt{ntnuthesis}
+document class for the long-form thesis, compiled locally with a MiKTeX
+distribution (\texttt{pdflatex}/\texttt{biber}). General project
+documentation (hardware specifications, pinouts, and development history)
+is maintained in Markdown under \texttt{docs/}.
+
+\subsection{Software Development Environments}
+
+Embedded firmware is developed in C++ using the PlatformIO build system
+and toolchain, targeting an embedded microcontroller platform. Version
+control is managed with Git.

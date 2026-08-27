@@ -1,0 +1,137 @@
+\chapter{Functional Requirements}
+\label{ch:functional-requirements}
+
+This chapter defines the functional requirements that the Sentinel system
+must satisfy. Requirements are described functionally, independent of the
+specific hardware components used to realise them; component selection and
+justification are deferred to dedicated design chapters later in this
+report.
+
+\section{Climbing Mechanics and Slack Management}
+\label{sec:fr-slack-management}
+
+The system must automatically take in rope as the climber ascends, so
+that the amount of slack in the system remains within a safe, comfortable
+range without manual intervention. To do so, the system must reliably
+distinguish between two dynamically different situations that both
+involve rope moving through the mechanism:
+
+\begin{itemize}
+    \item \textbf{Normal ascent / rope pull-in}, where the climber is
+        moving upward and the rope must be taken in at a corresponding,
+        comparatively gradual rate.
+    \item \textbf{A fall event}, characterised by a sudden increase in
+        rope acceleration and/or a rapid increase in measured rope
+        tension, which must be distinguished from normal climbing
+        dynamics (e.g.\ clipping, resting on the rope, or bursts of quick
+        movement).
+\end{itemize}
+
+This distinction must be made using onboard rope-movement and
+tension-sensing information, processed in real time, and must be robust
+enough to avoid both missed fall detections and false-positive brake
+triggers during ordinary climbing.
+
+\section{Post-Fall State Detection}
+\label{sec:fr-post-fall}
+
+After the system has arrested a fall by engaging the brake, it must be
+able to detect when the climber has resumed a valid, stable climbing
+position (e.g.\ has regained a hold and is no longer hanging dynamically
+on the rope). Once this state is detected, the system must release the
+brake and resume normal slack-management behaviour automatically, without
+requiring a manual reset from the climber or a belay partner, unless a
+manual reset is explicitly designed as a deliberate safety fallback.
+
+\section{Operational Modes and Remote Control}
+\label{sec:fr-modes}
+
+The system must support at least two distinct operational modes:
+
+\begin{itemize}
+    \item \textbf{Climbing Mode}: the default mode described in
+        \cref{sec:fr-slack-management} and \cref{sec:fr-post-fall}, in
+        which the system manages slack during ascent and arrests falls.
+    \item \textbf{Rappel / Abseil Mode}: a mode that allows a controlled,
+        continuous descent, with the braking behaviour adapted for a
+        deliberate downward motion rather than treating it as a fall
+        event.
+\end{itemize}
+
+Switching between these modes must be possible via a wireless remote
+control, allowing the operator (climber or belay supervisor) to change
+modes without physically accessing the device mounted on the anchor point.
+
+\section{Battery Management and Safety Protocols}
+\label{sec:fr-battery}
+
+\subsection{Battery Level Indication}
+
+The system must visually and clearly indicate the current battery charge
+level at all times during operation, so that the user can make an
+informed decision about whether it is safe to begin or continue climbing.
+
+\subsection{Low-Battery Restrictions}
+
+The system must enforce the following safety protocols based on battery
+state:
+
+\begin{itemize}
+    \item If the battery level is low at start-up, the system must
+        prevent Climbing Mode from being initiated.
+    \item If the battery level drops to a low or critical level
+        \emph{during} an active climbing session, the system must
+        restrict its functionality strictly to Rappel/Abseil Mode,
+        allowing the climber currently on the wall to be safely lowered
+        rather than left in an unsupported state.
+\end{itemize}
+
+\section{Fail-Safe Mechanical Override}
+\label{sec:fr-failsafe}
+
+This requirement is considered \textbf{critical} to the safety case of
+the system.
+
+\subsection{Automatic Rope Lock on Power Loss}
+
+In the event of a power loss or an electronic/software failure, the rope
+must lock automatically by default. The mechanical design must guarantee
+this fail-safe behaviour independent of the control software -- that is,
+the default, unpowered, or faulted state of the mechanism must be
+``locked'', not ``free-running''.
+
+\subsection{Manual Override Lever}
+
+A manual physical lever must allow the climber (or a belay supervisor) to
+override the automatic lock and execute a controlled descent by hand,
+even with no power available. This requires evaluating a passive,
+GriGri-like mechanical behaviour that functions correctly without any
+electronic assistance, ensuring that a power or electronics failure never
+leaves a climber stranded with no means of controlled descent.
+
+\section{Non-Functional Requirements}
+\label{sec:non-functional-requirements}
+
+Beyond the functional behaviour described above, the system must also
+satisfy a number of non-functional requirements. These are not yet
+exhaustive and are expected to be expanded as the design matures; initial
+candidates include:
+
+\begin{itemize}
+    \item \textbf{Reliability and safety-critical performance}: given
+        that a missed or delayed fall detection has direct safety
+        consequences, the system's sensing and braking response must
+        meet a bounded, worst-case reaction latency, and must degrade
+        towards the fail-safe locked state (\cref{sec:fr-failsafe})
+        rather than towards an unsafe state under any fault condition.
+    \item \textbf{Real-time responsiveness}: sensor acquisition, state
+        estimation, and brake actuation must run within firm real-time
+        deadlines, since the usefulness of the system depends on
+        reacting fast enough to arrest a fall before excessive slack
+        develops.
+    \item \textbf{Usability and ergonomics}: the device must be
+        operable by a climber with no more training than is required for
+        a conventional assisted-braking belay device, with clear,
+        unambiguous feedback (e.g.\ battery level, operating mode) that
+        does not require reading a manual mid-climb.
+\end{itemize}

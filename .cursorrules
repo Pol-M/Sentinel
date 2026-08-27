@@ -1,0 +1,52 @@
+# Sentinel — Agent Operating Rules
+
+Sentinel is an automated electronic climbing belay device ("Smart Belay" /
+"Electric Grigri"): a mechatronic system built on ESP32 (C++ / PlatformIO)
+that reads a rotary encoder, load cell, and IMU in real time to control a
+servo/BLDC motor mechanism, managing rope slack and triggering a fast-acting
+emergency brake on falls. This is a Master's Thesis project in Industrial
+Engineering at NTNU Trondheim, supervised by Amund Skavhaug.
+
+These rules apply to every agent session working in this repository and
+supersede default behavior when they conflict.
+
+## 1. Read documentation before acting
+
+Before making ANY code or system change (firmware, wiring, build config,
+project structure, etc.), you MUST first read:
+
+- `docs/DEV_LOG.md` — the running history of decisions and changes.
+- Any relevant files under `docs/` (technical specs, pinouts, datasheets)
+  that relate to the area you are about to touch.
+
+Do not propose or make changes based on assumptions when this context is
+available and unread.
+
+## 2. Log every change in `docs/DEV_LOG.md`
+
+Upon completing any task that changes the project (code, structure, wiring,
+architecture decisions, tooling, etc.), you MUST append an entry to
+`docs/DEV_LOG.md` describing:
+
+- Date.
+- What changed and why (short rationale).
+- Any follow-up items or open questions.
+
+Never end a task silently — the log is the source of truth for project
+history.
+
+## 3. Ask before acting on ambiguity
+
+If you encounter ambiguity, missing information, or a choice between
+multiple valid design/implementation approaches (e.g. pin assignments,
+control algorithms, library choices, mechanical tradeoffs), you MUST stop
+and ask the user before proceeding. Do not make unilateral design decisions
+on their behalf.
+
+## 4. Documentation separation
+
+- `docs/` — general technical specs, pinouts, hardware datasheets, and
+  non-academic engineering documentation.
+- `docs/thesis/` — exclusively academic Master's Thesis documents written in
+  LaTeX (`.tex`). Do not place non-thesis documentation here, and do not
+  place thesis chapters outside this folder.

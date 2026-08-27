@@ -1,0 +1,111 @@
+% =============================================================================
+% Sentinel -- Automated Self-Belay System
+% Master's Thesis -- Main document
+%
+% Author:     Pol Mas Fillat
+% Institution: Norwegian University of Science and Technology (NTNU), Trondheim
+%              (in collaboration with Universitat Politecnica de Catalunya, UPC)
+% Supervisor: Amund Skavhaug
+%
+% This is the primary, long-form thesis document. It is expected to grow
+% throughout the semester -- new chapters should be added as new files under
+% chapters/ and \input into this file, keeping this main file as a stable
+% "table of contents" for the whole report. See docs/DEV_LOG.md for the
+% history of structural changes to this document.
+%
+% Uses the community "ntnuthesis" document class (CC-BY CoPCSE@NTNU),
+% vendored locally as ntnuthesis.cls. This class is NOT an official NTNU
+% requirement -- it is a widely used, report-class-based community template.
+% The custom title page below is used instead of the class's built-in
+% `titlepage` option, since the official NTNU cover page (with university
+% logo) should ultimately be obtained from Innsida and used for the final
+% hand-in copy.
+% =============================================================================
+
+\documentclass[british]{ntnuthesis}
+
+\usepackage{float} % for strict [H] figure placement
+
+\title{Sentinel}
+\shorttitle{Sentinel}
+\author{Pol Mas Fillat}
+\shortauthor{Pol Mas Fillat}
+\date{\today}
+
+\addbibresource{references.bib}
+
+\begin{document}
+
+% -----------------------------------------------------------------------------
+% Title page
+% -----------------------------------------------------------------------------
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+
+        {\large Norwegian University of Science and Technology (NTNU), Trondheim}\\[0.2cm]
+        {\normalsize in collaboration with}\\[0.2cm]
+        {\large Universitat Polit\`ecnica de Catalunya (UPC), Barcelona}
+
+        \vspace{2.5cm}
+
+        {\Huge \bfseries Master's Thesis}\\[0.6cm]
+        {\LARGE Sentinel}\\[0.3cm]
+        {\Large Automated Self-Belay System}
+
+        \vspace{1cm}
+
+        {\normalsize An automated electronic climbing belay device that
+        manages rope slack and performs fast-acting emergency braking,
+        removing the dependency on a continuously attentive human belayer.}
+
+        \vfill
+
+        \begin{tabular}{ll}
+            Author:      & Pol Mas Fillat \\[0.2cm]
+            Supervisor:  & Amund Skavhaug \\[0.2cm]
+            Programme:   & Industrial Engineering (Master's Thesis) \\
+        \end{tabular}
+
+        \vspace{1.5cm}
+
+        {\large \today}
+    \end{center}
+\end{titlepage}
+
+% -----------------------------------------------------------------------------
+% Front matter
+% -----------------------------------------------------------------------------
+\chapter*{Abstract}
+%\emph{Draft abstract -- to be revised as the project progresses.}
+
+Sentinel is a mechatronic system designed to function as an automated
+electronic climbing belay device. Unlike conventional belay devices, which
+still require a human operator to feed rope and arrest falls, Sentinel aims
+to autonomously manage rope slack during a climber's ascent and to trigger
+a fast-acting mechanical brake upon detecting a fall. This thesis documents 
+the design, implementation, and evaluation of a functional prototype, together
+with an analysis of the regulatory and safety context relevant to automated belay devices.
+
+\tableofcontents
+
+% -----------------------------------------------------------------------------
+% Chapters
+% -----------------------------------------------------------------------------
+\input{chapters/01_introduction}
+\input{chapters/02_functional_requirements}
+\input{chapters/03_technical_design}
+\input{chapters/04_development_process}
+\input{chapters/05_implementation}
+\input{chapters/06_deployment}
+\input{chapters/07_testing_and_user_feedback}
+\input{chapters/08_discussion}
+\input{chapters/09_conclusion}
+
+% -----------------------------------------------------------------------------
+% Bibliography
+% -----------------------------------------------------------------------------
+\chapter*{\bibname}
+\printbibliography[heading=none]
+
+\end{document}
