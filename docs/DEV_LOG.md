@@ -147,6 +147,29 @@ heuristics.
 
 ---
 
+## 2026-08-27 (3) — Phase 1 sketches combined into side-by-side subfigures
+
+**Summary:**
+- Merged the two separate Phase 1 sketch figures in
+  `chapters/03_technical_design.tex` into a single `figure` environment
+  with two `subfigure` blocks (idle/annotated view and actuated view),
+  side by side at `0.48\textwidth` each. One main caption
+  (`fig:sentinel_v1_sketches`) plus subcaptions (a) and (b) for each
+  image (`fig:sentinel_v1`, `fig:sentinel_v1_actuant`).
+- Updated the section intro text to reference the combined figure and
+  both subfigures explicitly.
+- Recompiled successfully (two `pdflatex` passes).
+
+**Rationale:**
+Save vertical space and present the two related Phase 1 sketches as a
+single logical figure, following standard academic figure/subfigure
+convention (already supported by `subcaption` in `ntnuthesis`).
+
+**Follow-ups:**
+- No commit has been made yet.
+
+---
+
 ## 2026-08-27 (2) — Figure 1 caption fixed, Phase 1 design sketch added, project name origin documented
 
 **Summary:**
@@ -334,3 +357,65 @@ choices change during the design phase.
   `chapters/` and `\input` from the main file, with each addition logged
   here.
 - No commit has been made yet.
+
+---
+
+## 2026-08-27 (3) — Pushed to GitHub (`Pol-M/Sentinel`)
+
+**Summary:**
+- Extended `.gitignore`: added common OS/editor noise (`.DS_Store`,
+  `Thumbs.db`, `*.swp`), excluded all thesis figure asset folders
+  (`docs/**/figures/`) from version control (the `.tex` sources and
+  compiled PDFs remain tracked), and excluded the `CAD/` folder entirely
+  (per user decision — it holds ~12 MB of third-party Petzl GriGri
+  SolidWorks reference files/archives, kept local-only rather than
+  versioned; this resolves the open question flagged in the
+  2026-08-23 entry).
+- Added a simple root `README.md` describing the project, repository
+  layout, firmware build instructions (PlatformIO), and current status.
+- Added a `origin` remote pointing at the user-created GitHub repository
+  `https://github.com/Pol-M/Sentinel.git`.
+- Made the first commit (`093c6b2`, root commit) containing the firmware
+  skeleton, `docs/` (thesis `.tex` sources + compiled PDFs, excluding
+  figures), `.cursorrules`, `.gitignore`, and `README.md`, then pushed
+  `master` to `origin` with upstream tracking set up.
+
+**Rationale:**
+Get the project under remote version control on GitHub as requested,
+while keeping the repository lean by excluding large binary assets
+(thesis figure images, third-party CAD reference files) that don't need
+version history, per explicit user confirmation on the CAD folder.
+
+**Follow-ups:**
+- Figures and CAD files exist only locally now — consider a backup
+  strategy for them outside of git if not already covered elsewhere.
+- Verify/update the GrabCAD bibliography entry's author and date fields
+  (still open from earlier).
+- Confirm with the supervisor whether the official NTNU title page is
+  required for the final hand-in (still open from earlier).
+- This DEV_LOG entry itself was written locally but not committed/pushed
+  by the agent — see rule change below; the user commits/pushes it
+  themselves.
+
+---
+
+## 2026-08-27 (4) — Agent rules: no git commits/pushes, no PDF compiles by the agent
+
+**Summary:**
+- Added two new rules to `.cursorrules`:
+  - **Rule 5**: the agent must not run `git add` / `git commit` / `git
+    push` — the user handles all staging, committing, and pushing
+    themselves. Read-only git commands (`status`, `diff`, `log`, etc.)
+    are still fine.
+  - **Rule 6**: the agent must not compile the LaTeX thesis to PDF
+    (`pdflatex`/`biber`/etc.) unless strictly necessary to verify a
+    change actually compiles — the user exports PDFs themselves
+    otherwise.
+
+**Rationale:**
+The user wants full manual control over version-control history and over
+when/how the thesis PDF is (re)generated, rather than having the agent do
+either automatically as a side effect of other tasks.
+
+**Follow-ups:**
+- None.

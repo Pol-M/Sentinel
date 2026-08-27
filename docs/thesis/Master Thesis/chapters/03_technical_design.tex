@@ -8,10 +8,12 @@
 \section{Conceptual Design Sketch (Phase 1)}
 \label{sec:design-sketch-phase1}
 
-\Cref{fig:sentinel_v1_actuant} shows an early-stage hand sketch produced
+\Cref{fig:sentinel_v1_sketches} shows early-stage hand sketches produced
 during Phase 1 of the mechanical design, used to visualise which
 functions the rope-pinching mechanism needs to provide before committing
-to a detailed CAD model. The sketch identifies the following elements:
+to a detailed CAD model. \Cref{fig:sentinel_v1} marks the required
+components; \cref{fig:sentinel_v1_actuant} shows the same mechanism in an
+actuated state. The sketches identify the following elements:
 
 \begin{itemize}
     \item An \textbf{encoder}, used to measure the rope's acceleration as
@@ -40,8 +42,19 @@ to a detailed CAD model. The sketch identifies the following elements:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/Sentinel v1 actuant.jpg}
-    \caption{Phase 1 conceptual sketch of the rope-pinching mechanism,
-    used to visualise the device's required functions.}
-    \label{fig:sentinel_v1_actuant}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/Sentinel v1.jpg}
+        \caption{Device with the required functions marked.}
+        \label{fig:sentinel_v1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/Sentinel v1 actuant.jpg}
+        \caption{Device when the pinching mechanism is actuating.}
+        \label{fig:sentinel_v1_actuant}
+    \end{subfigure}
+    \caption{Phase 1 conceptual sketches of the rope-pinching mechanism.}
+    \label{fig:sentinel_v1_sketches}
 \end{figure}

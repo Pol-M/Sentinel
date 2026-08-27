@@ -50,3 +50,18 @@ on their behalf.
 - `docs/thesis/` — exclusively academic Master's Thesis documents written in
   LaTeX (`.tex`). Do not place non-thesis documentation here, and do not
   place thesis chapters outside this folder.
+
+## 5. Do not run `git add` / `git commit` / `git push`
+
+The user performs all git staging, committing, and pushing themselves. Do
+not run these commands on their behalf, even after making file changes.
+You may still run read-only git commands (e.g. `git status`, `git diff`,
+`git log`) to inspect state when useful.
+
+## 6. Do not compile the thesis to PDF unless strictly necessary
+
+The user exports/compiles the LaTeX thesis documents to PDF themselves. Do
+not run `pdflatex`/`biber`/etc. to produce or update a PDF unless it is
+extremely necessary to verify that a change actually compiles (e.g. after a
+structural LaTeX change you cannot otherwise validate) — and prefer the
+lightest check possible even then.
