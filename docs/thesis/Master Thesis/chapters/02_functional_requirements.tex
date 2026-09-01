@@ -19,9 +19,10 @@ involve rope moving through the mechanism:
 \begin{itemize}
     \item \textbf{Normal ascent / rope pull-in}, where the climber is
         moving upward and the rope must be taken in at a corresponding,
-        comparatively gradual rate.
+        comparatively gradual rate. The device also has to be able to allow
+        rope taking during climbing without blocking the system.
     \item \textbf{A fall event}, characterised by a sudden increase in
-        rope acceleration and/or a rapid increase in measured rope
+        rope acceleration and a rapid increase in rope
         tension, which must be distinguished from normal climbing
         dynamics (e.g.\ clipping, resting on the rope, or bursts of quick
         movement).
@@ -41,7 +42,8 @@ position (e.g.\ has regained a hold and is no longer hanging dynamically
 on the rope). Once this state is detected, the system must release the
 brake and resume normal slack-management behaviour automatically, without
 requiring a manual reset from the climber or a belay partner, unless a
-manual reset is explicitly designed as a deliberate safety fallback.
+manual reset is explicitly designed as a deliberate safety fallback. Also
+this has to be able to do by pressing a button in the remote control.
 
 \section{Operational Modes and Remote Control}
 \label{sec:fr-modes}
@@ -52,7 +54,7 @@ The system must support at least two distinct operational modes:
     \item \textbf{Climbing Mode}: the default mode described in
         \cref{sec:fr-slack-management} and \cref{sec:fr-post-fall}, in
         which the system manages slack during ascent and arrests falls.
-    \item \textbf{Rappel / Abseil Mode}: a mode that allows a controlled,
+    \item \textbf{Rappel Mode}: a mode that allows a controlled,
         continuous descent, with the braking behaviour adapted for a
         deliberate downward motion rather than treating it as a fall
         event.
@@ -61,6 +63,9 @@ The system must support at least two distinct operational modes:
 Switching between these modes must be possible via a wireless remote
 control, allowing the operator (climber or belay supervisor) to change
 modes without physically accessing the device mounted on the anchor point.
+
+The rappel will be done by maintaining a downwards button in the remote controll.
+There must be an other button in the remote controll to pull the rope.
 
 \section{Battery Management and Safety Protocols}
 \label{sec:fr-battery}
@@ -83,7 +88,8 @@ state:
         \emph{during} an active climbing session, the system must
         restrict its functionality strictly to Rappel/Abseil Mode,
         allowing the climber currently on the wall to be safely lowered
-        rather than left in an unsupported state.
+        rather than left in an unsupported state. The system must do a clear 
+        sonoric advice to announce the mode switch.
 \end{itemize}
 
 \section{Fail-Safe Mechanical Override}

@@ -34,4 +34,4 @@ docs/**/figures/
 
 # Reference/third-party CAD files (large SolidWorks binaries + archives,
 # kept local-only rather than versioned).
-CAD/
+CAD/petzl_grigri
