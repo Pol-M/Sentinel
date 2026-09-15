@@ -1,0 +1,129 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{img_adam_ondra_dawn_wall}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=bc5fc610246e0b7e0212ada9946c70e6}{%
+           family={Blažek},
+           familyi={B\bibinitperiod},
+           given={Pavel},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{bc5fc610246e0b7e0212ada9946c70e6}
+      \strng{fullhash}{bc5fc610246e0b7e0212ada9946c70e6}
+      \strng{fullhashraw}{bc5fc610246e0b7e0212ada9946c70e6}
+      \strng{bibnamehash}{bc5fc610246e0b7e0212ada9946c70e6}
+      \strng{authorbibnamehash}{bc5fc610246e0b7e0212ada9946c70e6}
+      \strng{authornamehash}{bc5fc610246e0b7e0212ada9946c70e6}
+      \strng{authorfullhash}{bc5fc610246e0b7e0212ada9946c70e6}
+      \strng{authorfullhashraw}{bc5fc610246e0b7e0212ada9946c70e6}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Photograph}
+      \field{note}{Source photograph for Figure~1.1. Verify exact image URL and licence before final submission.}
+      \field{title}{Adam Ondra on {Dawn Wall}, Day 5}
+      \field{urlday}{1}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{year}{2016}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.nationalgeographic.com/adventure/article/adam-ondra-dawn-wall-crux-attempt
+      \endverb
+      \verb{url}
+      \verb https://www.nationalgeographic.com/adventure/article/adam-ondra-dawn-wall-crux-attempt
+      \endverb
+    \endentry
+    \entry{petzl_belay_slack}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=91e8d3a7f31201695cb49b0bffeeecab}{%
+           family={{Petzl}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{fullhash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{fullhashraw}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{bibnamehash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{authorbibnamehash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{authornamehash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{authorfullhash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{authorfullhashraw}{91e8d3a7f31201695cb49b0bffeeecab}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Petzl technical documentation}
+      \field{note}{Source illustration for the slack-management panel in Figure~1.2.}
+      \field{title}{Belay Technique: Taking Up Slack}
+      \field{urlday}{1}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.petzl.com/INT/en/Sport/Belay-technique--taking-up-slack
+      \endverb
+      \verb{url}
+      \verb https://www.petzl.com/INT/en/Sport/Belay-technique--taking-up-slack
+      \endverb
+    \endentry
+    \entry{petzl_belay_device}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=91e8d3a7f31201695cb49b0bffeeecab}{%
+           family={{Petzl}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{fullhash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{fullhashraw}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{bibnamehash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{authorbibnamehash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{authornamehash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{authorfullhash}{91e8d3a7f31201695cb49b0bffeeecab}
+      \strng{authorfullhashraw}{91e8d3a7f31201695cb49b0bffeeecab}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Petzl technical documentation}
+      \field{note}{Source illustration for the belay-device panel in Figure~1.2.}
+      \field{title}{Universal Technique for Correct Use of a Belay Device}
+      \field{urlday}{1}
+      \field{urlmonth}{9}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.petzl.com/INT/en/Sport/Universal-technique-for-correct-use-of-a-belay-device-
+      \endverb
+      \verb{url}
+      \verb https://www.petzl.com/INT/en/Sport/Universal-technique-for-correct-use-of-a-belay-device-
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

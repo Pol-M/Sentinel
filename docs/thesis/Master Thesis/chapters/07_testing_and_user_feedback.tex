@@ -1,7 +1,112 @@
+% !TEX root = ../MasterThesis_PolMasFillat.tex
+
 \chapter{Testing and User Feedback}
 \label{ch:testing-feedback}
 
-% TODO: to be written. Should describe how the system was tested during
-% and after development (unit testing, black-box vs. white-box, user
-% testing), what was learned, and what impact it had on the product and
-% process.
+This chapter documents bench-top tests used to evaluate the performance of the Sentinel prototype.
+
+\section{Testing of traditional assisted braking devices}
+\label{sec:testing-traditional-devices}
+
+To be legally commercialized as Personal Protective Equipment (PPE) within the European Union and recognized globally, assisted braking belay devices must comply with rigorous safety standards and standardized testing protocols. Because these devices form a critical link in the climbing safety chain, they are classified under Category III PPE according to Regulation (EU) 2016/425 \cite{eu_ppe_2016}, governing equipment designed to protect users against risks that may cause severe consequences such as death or irreversible health damage.
+
+\subsection{Applicable Standards and Certifications}
+
+Commercial assisted braking devices (ABDs) must satisfy three primary normative frameworks prior to market entry:
+
+\begin{itemize}
+    \item \textbf{Regulation (EU) 2016/425 (CE Marking):} The legal framework for PPE distributed in Europe. Category III compliance mandates stringent quality control, including independent type-examination by a Notified Body (Module B) and ongoing manufacturing quality monitoring (Module C2 or D) \cite{eu_ppe_2016}.
+    \item \textbf{EN 15151-1 (Type 8 / Type 5):} The specific European standard defining safety requirements and laboratory testing procedures for braking devices with manually assisted locking \cite{en15151_1}.
+    \item \textbf{UIAA 129 Standard:} The safety standard published by the International Climbing and Mountaineering Federation (\textit{Union Internationale des Associations d'Alpinisme}). The UIAA standard builds upon EN 15151-1 but mandates static structural load thresholds between $15\text{ kN}$ and $22\text{ kN}$ to ensure an adequate safety margin under extreme dynamic loading scenarios \cite{uiaa129, TFM_Sentinel_2026}.
+\end{itemize}
+
+\subsection{Standardized Testing Procedures}
+
+Under standard EN 15151-1, prototype and production units are subjected to strict mechanical and functional assays in laboratory settings:
+
+\begin{enumerate}
+    \item \textbf{Dynamic Drop Test (Impact Performance):} A standardized rigid mass of $80\text{ kg}$ is dropped in a test rig simulating a severe lead fall. Across three consecutive test drops, the mean rope slippage through the device locking mechanism must not exceed $1.5\text{ m}$ before fully arresting the load \cite{en15151_1}.
+    \item \textbf{Static Holding Force Test:} With the locking mechanism engaged, a static tensile force of $8\text{ kN}$ is applied to the device for $60\text{ seconds}$. The unit must sustain this load without structural rupture or releasing the rope. In actual climbing falls, dynamic impact forces transmitted to the belay device typically reach between $4\text{ kN}$ and $8\text{ kN}$ \cite{TFM_Sentinel_2026}.
+    \item \textbf{Locking Engagement Test:} A lower static load of $2\text{ kN}$ is applied for $60\text{ seconds}$ to verify that the assisted braking mechanism triggers reliably under moderate rope tension. The maximum allowable rope displacement during engagement is $300\text{ mm}$.
+    \item \textbf{Anti-Panic Mechanism Test (Type 8 Devices):} For devices equipped with an anti-panic lowering lever, tests verify that pulling the lever completely past its operational position—a panic reflex scenario—automatically re-engages the braking mechanism.
+\end{enumerate}
+
+\subsection{Summary of Compliance Thresholds}
+
+Table~\ref{tab:belay_safety_tests} outlines the required physical tests, key test parameters, and mandatory compliance criteria required by EN 15151-1 and UIAA 129.
+
+\begin{table}[htbp]
+\centering
+\caption{Standardized safety tests and pass criteria for assisted braking devices.}
+\label{tab:belay_safety_tests}
+\begin{tabular}{lll}
+\hline
+\textbf{Test Type} & \textbf{Test Parameters} & \textbf{Mandatory Pass Criteria} \\ \hline
+Dynamic Performance & $80\text{ kg}$ drop mass, 3 iterations & Max rope slippage $\le 1.5\text{ m}$ \\
+Static Holding Force & $8\text{ kN}$ tension for $60\text{ s}$ & No structural failure or rope release \\
+Locking Activation & $2\text{ kN}$ load for $60\text{ s}$ & Activation with slippage $\le 300\text{ mm}$ \\
+Ultimate Tensile Load & Pull to structural failure & Must withstand $\ge 15\text{--}22\text{ kN}$ \cite{uiaa129, TFM_Sentinel_2026} \\
+Anti-Panic Function & Full lever pull past limit & Automatic brake re-engagement \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Test 1: Weight Hanging}
+\label{sec:test1-weight-hanging}
+
+\subsection{Introduction}
+\label{sec:test1-intro}
+
+The first test checks the most basic safety function of the device: when
+a load is suddenly applied to the climbing side of the rope, Sentinel
+must detect the event and lock the rope before the load travels an unsafe
+distance. A controlled weight-drop on a bench-top rig provides a simple,
+repeatable way to verify that the sensing and braking chain responds to a
+fall-like load without requiring a human climber or a full wall setup.
+
+\subsection{Methods}
+\label{sec:test1-methods}
+
+The Sentinel prototype is mounted on a fixed anchor point with a dynamic
+climbing rope threaded through the mechanism. A known mass is attached to
+the climber side of the rope and held at a defined height so that the
+rope carries little or no tension while the device is in its normal
+operating state. The mass is then released, applying a sudden load to the
+rope.
+
+For each trial, the following is recorded:
+
+\begin{itemize}
+    \item Whether Sentinel engaged the brake and arrested the load.
+    \item The time from release to brake engagement (reaction time),
+        measured from the sensor/log output or a high-speed recording of
+        the test.
+\end{itemize}
+
+The test is repeated for several trials to check basic repeatability.
+This first version establishes the procedure; thresholds, mass values, and
+drop height will be refined in later iterations.
+
+\subsection{Materials}
+\label{sec:test1-materials}
+
+\begin{itemize}
+    \item Sentinel prototype (firmware flashed and powered).
+    \item Standard dynamic climbing rope (diameter as specified in
+        \cref{sec:narrowing}).
+    \item Fixed anchor structure or test frame.
+    \item Hanging mass of known weight (e.g.\ kettlebell or plate).
+    \item Means of holding and releasing the mass without imparting extra
+        impulse (e.g.\ quick-release hook or manual cut-away).
+    \item Timing/logging equipment (serial log timestamp, oscilloscope
+        trigger, or video at known frame rate).
+\end{itemize}
+
+\subsection{Results}
+\label{sec:test1-results}
+
+% TODO: record trial data (reaction times, pass/fail per run).
+
+\subsection{Discussion}
+\label{sec:test1-discussion}
+
+% TODO: interpret results, compare against requirements, note limitations.

@@ -1,92 +1,190 @@
+% !TEX root = ../MasterThesis_PolMasFillat.tex
+
 \chapter{Introduction}
 \label{ch:introduction}
 
 The name \emph{Sentinel} is derived from the Old Italian word
 \emph{sentinella}, referring to a person or thing tasked with watching
 over, protecting, and alerting others of potential danger. This is
-precisely what the device aims to do for a climber: it continuously
+precisely what \emph{Sentinel} aims to do for a climber: it continuously
 watches over the climbing rope, manages it to protect the climber during
-the ascent, and reacts immediately -- by braking -- the moment a danger
-(a fall) is detected.
+the ascent, and reacts immediately -- by braking -- if a fall is 
+detected.
 
 \section{Background}
 \label{sec:background}
 
-Rock and sport climbing rely fundamentally on the belay system: the
-mechanism and human partner responsible for managing rope slack and
-arresting a climber's fall. Traditional belaying requires a trained,
-attentive human belayer holding the rope at all times, which introduces
-risks related to human error, fatigue, distraction, and inconsistent
-reaction times. Semi-automated mechanical devices assist with braking by
-using a cam or pinching mechanism that clamps the rope against a grooved
-wheel, but they still require a human operator to feed rope in and out and
-to manage slack during the climb.
-
-As an initial mechanical design reference, this project looks specifically
-at the Petzl GriGri, shown in \cref{fig:petzl_grigri}. Unlike a plain
-friction hitch or a static cam, the GriGri already relies on a mechanism
-with moving parts -- a camming/pinching lever that clamps the rope
-against a grooved wheel to generate braking friction -- which makes it a
-plausible starting point for turning into a mechatronic (i.e.\
-motor-actuated and sensor-driven) system, rather than having to design a
-rope-gripping mechanism from scratch. A free 3D CAD model of this
-mechanism, available on the GrabCAD model repository~\cite{grabcad_petzl_grigri},
-was used to study its mechanical layout and is used here purely as a
-starting point for the mechanical design of Sentinel's own rope-gripping
-mechanism, to be extended with active sensing and actuation as described
-in this thesis.
+Climbing is a sport and activity that involves moving upward on rock faces or artificial walls using hands and feet for support, strength, and balance. There are several main disciplines: \textbf{bouldering}, which is performed on short walls without ropes; \textbf{sport climbing}, where a rope and pre-placed bolts protect the climber from falls; and \textbf{traditional (trad) climbing}, in which the climber places their own protection as they ascend. In sport and trad climbing, as well as multi-pitch routes, the rope and safety systems are fundamental for fall protection and security.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.55\textwidth]{figures/petzl_grigri_reference.png}
-    \caption{Petzl GriGri mechanical assembly. CAD model obtained from the
-    GrabCAD model repository~\cite{grabcad_petzl_grigri}, used as a
-    starting point for the design of Sentinel's rope-gripping mechanism.}
-    \label{fig:petzl_grigri}
+    \includegraphics[width=0.63\textwidth]{figures/adam-ondra-day-5-pitch.jpg}
+    \caption{Sport climber on rope with belayer below.}
+    \label{fig:adam_ondra}
+\end{figure}
+\vspace{0.4\baselineskip}
+
+In these disciplines, a \emph{belayer} manages the rope from below, feeding or taking in slack as required, and holding the rope in case the climber falls. The belayer is essential for safety: they must always pay close attention, anticipate the climber’s movements, and react instantly to any sudden load on the rope. Managing slack and braking are continuous, active processes.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/slackManagement.png}
+        \caption{Managing rope slack.}
+        \label{fig:slack_management}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/belayerPetzl.png}
+        \caption{Belayer operating a braking device.}
+        \label{fig:belayer_petzl}
+    \end{subfigure}
+    \caption{The belayer: (a)~adjusts rope slack, (b)~operates gear to catch a fall.}
+    \label{fig:belayer_tasks}
 \end{figure}
 
-\section{Project Area}
+To connect the rope to the anchor and the belayer's harness, a wide
+variety of belay devices exists. They differ in how much braking force
+they provide on their own and in how much continuous attention the belayer
+must still supply. At the simplest end are \textbf{figure-eight descenders},
+such as the CAMP Otto~\cite{camp_otto}: the rope is woven through a fixed
+aluminium shape and braking relies entirely on rope friction and the
+belayer's brake-hand grip, with no mechanical assist when a load suddenly
+appears (\cref{fig:camp_otto}).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.35\textwidth]{figures/CAMPOtto.jpg}
+    \caption{CAMP Otto figure-eight descender.}
+    \label{fig:camp_otto}
+\end{figure}
+
+A step above are \textbf{manual belay devices}---tube-style designs such
+as the Petzl Reverso~\cite{petzl_reverso}. The rope is bent through the
+device and, when loaded, is pressed into V-shaped friction grooves that
+increase holding force, but catching a fall still depends completely on
+the belayer maintaining correct hand position and pulling the brake strand
+downward (\cref{fig:petzl_reverso}). These devices are lightweight and
+versatile, yet they offer no additional help beyond friction geometry:
+slack management and the decision to lock the rope remain fully manual.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.42\textwidth]{figures/PetzlReverso.jpeg}
+    \caption{Petzl Reverso manual belay device.}
+    \label{fig:petzl_reverso}
+\end{figure}
+
+\textbf{Assisted Braking Devices} (ABDs) go further by adding a mechanical
+response when the rope is loaded quickly. The belayer must still feed and
+take in slack, but the device itself contributes extra holding force during
+a fall or hard catch. Within this family, designs differ in whether they
+use internal moving parts. \textbf{Geometric ABDs} such as the Mammut
+Smart~2.0~\cite{mammut_smart_2} have no moving components: under load, the
+rope is forced into a shaped channel and the carabiner orientation
+increases friction passively. That geometry assists a skilled belayer but
+provides no discrete latch or lever that an actuator could command
+(\cref{fig:mammut_smart_2}).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.42\textwidth]{figures/MammutSmart2.0.png}
+    \caption{Mammut Smart~2.0 geometric assisted-braking device.}
+    \label{fig:mammut_smart_2}
+\end{figure}
+
+\textbf{Active ABDs} add internal moving parts that react to rope motion or
+tension. The Petzl GriGri~\cite{grabcad_petzl_grigri} uses a pivoting cam
+that pinches the rope against a grooved sheave when a sudden load is
+applied; the Wild Country Revo~\cite{wild_country_revo} uses a centrifugal
+wheel that locks when the rope accelerates rapidly in either direction
+(\cref{fig:active_abds}). Both reduce belayer effort during a catch, but
+their internal layouts differ sharply: the GriGri exposes a single cam
+lever with a clear open/closed state, whereas the Revo packs an inertial
+wheel, clutch, and locking elements into a compact, tightly coupled
+assembly.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/petzl_grigri_reference.png}
+        \caption{Petzl GriGri (cam-assisted).}
+        \label{fig:petzl_grigri}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/WildCountryRevo.jpg}
+        \caption{Wild Country Revo (inertia-assisted).}
+        \label{fig:wild_country_revo}
+    \end{subfigure}
+    \caption{Active assisted-braking devices with internal moving parts.}
+    \label{fig:active_abds}
+\end{figure}
+
+For Sentinel, the GriGri-style cam architecture is taken as the mechanical
+reference. Its pinching mechanism is mechanically straightforward to model,
+has a natural motor actuation point on the cam lever, and retains a proven
+passive lock-on-load behaviour that can serve as a fail-safe when power is
+lost. The Revo's inertial internals would be far harder to motorise and
+instrument in a first prototype, and the Smart's geometry-dependent braking
+offers no comparable actuation interface. Automating a GriGri-inspired cam
+mechanism therefore strikes the best balance between mechanical simplicity,
+field-proven safety, and suitability for active motorisation.
+
+\section{Problem Area}
 \label{sec:project-area}
 
-This thesis sits at the intersection of mechatronics, embedded real-time
-systems, and sports safety equipment engineering. The project area covers:
-the mechanical design of a rope-handling and braking mechanism; the
-integration of motion, position, and force sensing to estimate a climber's
-state in real time; the design of an active motor-driven mechanism for
-slack management and emergency braking; and the analysis of relevant
-safety regulations and standards for climbing protection equipment.
+However, reliance on a human belayer introduces risks: errors due to fatigue, distraction, or inexperience can result in too much slack or a delayed braking response. Furthermore, climbing requires one person to belay while the other climbs, meaning both cannot climb simultaneously. Automating the belaying process could increase safety, reduce human error, and allow both climbers to be on the wall at once.
+
+This thesis addresses the question: \emph{Can the key safety functions of a human belayer be reliably replaced by an autonomous, mechatronic system?} Such a system would have to actively assess the climber’s state, manage rope slack, detect falls, and operate a braking mechanism in real time, all without human intervention. This challenge requires seamless integration of mechanical engineering (for rope handling and braking), sensors (to monitor movement and tension), and robust embedded software to ensure immediate, safe operation and fail-safe behaviour, all while adhering to strict climbing equipment standards.
+
+If successful, such a device could enable new forms of climbing---such as both partners climbing simultaneously---and greatly reduce the risk posed by belayer error, fatigue, or distraction.
 
 \section{Narrowing}
 \label{sec:narrowing}
 
-Given the breadth of the project area, this work narrows its focus to a
-single-rope, indoor, controlled-environment prototype. The system is
-narrowed to:
+The problem posed in \cref{sec:project-area} applies in principle to every
+roped climbing discipline, environment, and stage of product development.
+This thesis does not address that full space. The problem is narrowed to
+the following boundary conditions:
 
 \begin{itemize}
-    \item A single, standard dynamic climbing rope diameter and type,
-        rather than supporting the full range of ropes on the market.
-    \item Bench-top and controlled indoor testing, rather than outdoor or
-        production climbing-gym deployment.
-    \item A functional proof-of-concept prototype, rather than a
-        manufacturable, certified consumer product.
+    \item \textbf{Climbing context:} sport climbing with a single belay
+        from below. Bouldering (no rope) and trad climbing
+        (climber-placed protection) lie outside the problem frame.
+    \item \textbf{Operating environment:} bench-top rigs and controlled
+        indoor tests, not outdoor crags or operational deployment in
+        commercial climbing gyms.
+    \item \textbf{Rope assumptions:} one standard dynamic rope diameter and
+        type, not the full range of ropes or belay configurations on the
+        market.
+    \item \textbf{Solution maturity:} proof-of-concept level---a laboratory
+        demonstrator rather than a manufacturable or certified consumer
+        product.
 \end{itemize}
 
-\section{Principal Objectives}
+\section{Objectives}
+\label{sec:objectives}
+
+\subsection{Principal Objectives}
 \label{sec:principal-objectives}
 
 \begin{enumerate}
     \item Create a functional prototype of an automated self-belaying
         device.
     \item Perform comprehensive testing and evaluation of the prototype.
-    \item Analyze regulations, standards, and safety requirements
-        applicable to such climbing devices.
 \end{enumerate}
 
-\section{Secondary Objectives}
+\subsection{Secondary Objectives}
 \label{sec:secondary-objectives}
 
 \begin{enumerate}
+    \item Analyze regulations, standards, and safety requirements
+        applicable to such climbing devices.
     \item Survey existing commercial and academic self-belay and
         assisted-braking solutions.
     \item Formulate comprehensive functional and technical requirement
@@ -133,10 +231,10 @@ revisited as future work:
 \section{Contributions}
 \label{sec:contributions}
 
-This thesis is expected to contribute:
+This thesis contributes the following:
 
 \begin{enumerate}
-    \item A working proof-of-concept prototype demonstrating that
+    \item A working proof-of-concept prototype that demonstrated
         automated, sensor-driven belaying with real-time slack management
         and fast emergency braking is technically feasible using
         accessible embedded hardware.
@@ -156,27 +254,31 @@ This thesis is expected to contribute:
 \label{sec:report-structure}
 
 This report is organised to build from problem definition to
-implementation and evaluation, following the structure of a typical
-software/mechatronic development-project thesis. \Cref{ch:introduction}
-(this chapter) introduces the motivation, objectives, research questions,
-and scope. \Cref{ch:functional-requirements} defines the functional and
-non-functional requirements that the system must satisfy, at both a high
-and low level. \Cref{ch:technical-design} describes the overall
-architecture of the chosen solution and why it was chosen.
-\Cref{ch:development-process} describes the development process
-followed, including tools for project management and documentation.
-\Cref{ch:implementation} covers the technical details of the
-implementation (tools, languages, libraries, and representative code or
-design examples). \Cref{ch:deployment} describes how the system is set
-up and deployed on the target hardware. \Cref{ch:testing-feedback}
-describes how the system was tested and what was learned from testing.
-\Cref{ch:discussion} discusses the process and product choices made
-throughout the project, and \Cref{ch:conclusion} summarises what was
-achieved and outlines future work. Every chapter beyond this Introduction
-and the Requirements chapter is currently an empty placeholder, to be
-filled in as the project progresses; each structural change to this
-document is logged in the project's development log
-(\texttt{docs/DEV\_LOG.md}).
+implementation and evaluation. The chapters are structured as follows:
+
+\begin{itemize}
+    \item \Cref{ch:introduction} introduces the motivation, problem
+        definition, narrowing, objectives, research questions, and scope.
+    \item \Cref{ch:functional-requirements} defines the functional and
+        non-functional requirements that the system must satisfy, at both
+        a high and low level.
+    \item \Cref{ch:technical-design} describes the overall architecture
+        of the chosen solution and the rationale behind it.
+    \item \Cref{ch:development-process} documents the development process
+        followed, including tools for project management and
+        documentation.
+    \item \Cref{ch:implementation} covers the technical details of the
+        implementation: tools, languages, libraries, and representative
+        code or design examples.
+    \item \Cref{ch:deployment} describes how the system is set up and
+        deployed on the target hardware.
+    \item \Cref{ch:testing-feedback} describes how the system was tested
+        and what was learned from testing.
+    \item \Cref{ch:discussion} discusses the process and product choices
+        made throughout the project.
+    \item \Cref{ch:conclusion} summarises what was achieved and outlines
+        future work.
+\end{itemize}
 
 \section{Report Tools}
 \label{sec:report-tools}
